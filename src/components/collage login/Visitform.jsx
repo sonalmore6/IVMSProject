@@ -35,7 +35,7 @@ const Visitform = () => {
     console.log('Form Data:', [...data.entries()]);
   
     try {
-      const response = await axios.post('http://localhost:3000/post', data, {
+      const response = await axios.post('http://localhost:3002/post', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       console.log('Response:', response);

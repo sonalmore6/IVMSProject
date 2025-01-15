@@ -9,7 +9,7 @@ const AgendaList = () => {
   useEffect(() => {
     const fetchAgendas = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/agendas/get');
+        const response = await axios.get('http://localhost:3002/api/agendas/get');
         setAgendas(response.data);
       } catch (error) {
         console.error('Error fetching agendas:', error);

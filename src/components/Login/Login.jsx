@@ -25,7 +25,7 @@ const Login = () => {
     };
 
     axios
-      .post('http://localhost:3000/user/login', payload)
+      .post('http://localhost:3002/user/login', payload)
       .then((res) => {
         setLoading(false);
         toast('Login Successful');

@@ -20,7 +20,7 @@ const Feedback = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/api/feedback/feedbackpost', formData);
+      const response = await axios.post('http://localhost:3002/api/feedback/feedbackpost', formData);
       setFeedbackStatus('Feedback submitted successfully!');
       setFormData({ visitDate: '', message: '' });
     } catch (error) {

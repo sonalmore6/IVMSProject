@@ -24,7 +24,7 @@ const PendingFees = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/fees/addfees", formData);
+      const response = await axios.post("http://localhost:3002/api/fees/addfees", formData);
       toast.success("Fees submitted successfully!");
       console.log(response.data);
     } catch (error) {
