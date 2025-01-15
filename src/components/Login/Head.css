@@ -1,0 +1,18 @@
+.nav-top {
+  background: linear-gradient(to right, #f44336, #e91e63);
+}
+  
+  .nav-top .nav-link {
+    color: white !important;
+  }
+  .nav-top .nav-link:hover {
+    color: black !important;
+  }
+  
+  
+  .nav-top .navbar-brand img {
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+  }
+ 
