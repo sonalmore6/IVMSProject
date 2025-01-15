@@ -33,7 +33,7 @@ const Home = () => {
     <div>
       <div className="video-container">
         {/* Background Video */}
-        <video autoPlay loop muted style={{ objectFit: 'cover', width: '100%', height: '100%', filter: 'blur(2px)' }}>
+        <video autoPlay loop muted style={{ objectFit: 'cover', width: '100%', height: '100%', filter: 'blur(2zpx)' }}>
           <source src={video} type="video/mp4" />
         </video>
 

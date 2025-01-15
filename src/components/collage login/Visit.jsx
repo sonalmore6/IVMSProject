@@ -11,7 +11,7 @@ const Visit = () => {
   useEffect(() => {
     const fetchVisits = async () => {
       try {
-        const response = await axios.get('http://localhost:3002/get'); // Replace with your actual API endpoint
+        const response = await axios.get('/api/visits'); // Replace with your actual API endpoint
         setVisits(response.data);
       } catch (error) {
         console.error('Error fetching visits:', error);

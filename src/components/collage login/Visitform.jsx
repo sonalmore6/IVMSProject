@@ -13,7 +13,7 @@ const Visitform = () => {
     location: '',
     purpose: '',
     studentDetails: '',
-    feedbackFile: null,
+    file: null,
   });
 
   const handleChange = (e) => {
@@ -22,7 +22,7 @@ const Visitform = () => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, feedbackFile: e.target.files[0] });
+    setFormData({ ...formData, file: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
@@ -31,31 +31,18 @@ const Visitform = () => {
     Object.keys(formData).forEach((key) => {
       data.append(key, formData[key]);
     });
-  
-    console.log('Form Data:', [...data.entries()]);
-  
+
     try {
-      const response = await axios.post('http://localhost:3002/post', data, {
+      const response = await axios.post('/api/add-visit', data, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      console.log('Response:', response);
       alert('Form submitted successfully!');
     } catch (error) {
-      if (error.response) {
-        // Log the backend response error
-        console.error('Error Response:', error.response.data);
-        console.error('Status:', error.response.status);
-      } else if (error.request) {
-        // Log the request if no response is received
-        console.error('Error Request:', error.request);
-      } else {
-        // Log other errors
-        console.error('Error Message:', error.message);
-      }
+      console.error(error);
       alert('Error submitting form!');
     }
   };
-  
+
   return (
     <Container className="mt-5 text-black">
       <h2 className="text-center mb-4 text-black">Add Visit</h2>
@@ -186,7 +173,7 @@ const Visitform = () => {
           <Form.Label className='text-black'>Upload File</Form.Label>
           <Form.Control
             type="file"
-            name="feedbackFile"
+            name="file"
             onChange={handleFileChange}
           />
         </Form.Group>

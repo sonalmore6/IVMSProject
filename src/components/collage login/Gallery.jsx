@@ -1,49 +1,73 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Form, Dropdown, DropdownButton } from 'react-bootstrap';
 import axios from 'axios';
+import ImageGallery from 'react-image-gallery';
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
+  const [sortOption, setSortOption] = useState('date_desc'); // Default sort by date descending
 
   useEffect(() => {
-    const fetchImages = async () => {
+    // Fetch images from the API
+    const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3002/api/gallery/images');
+        const response = await axios.get('/api/images'); // Replace with your actual API endpoint
         setImages(response.data);
-        console.log('Fetched images:', response.data);
       } catch (error) {
         console.error('Error fetching images:', error);
+        // Handle error gracefully (e.g., display an error message)
       }
     };
 
-    fetchImages();
+    fetchData();
   }, []);
 
+  const handleSortChange = (selectedOption) => {
+    setSortOption(selectedOption);
+
+    // Sort images based on the selected option
+    const sortedImages = [...images].sort((a, b) => {
+      if (selectedOption === 'date_asc') {
+        return new Date(a.date) - new Date(b.date);
+      } else if (selectedOption === 'date_desc') {
+        return new Date(b.date) - new Date(a.date);
+      } else if (selectedOption === 'name_asc') {
+        return a.name.localeCompare(b.name);
+      } else if (selectedOption === 'name_desc') {
+        return b.name.localeCompare(a.name);
+      }
+      return 0; // Default to no sorting
+    });
+
+    setImages(sortedImages);
+  };
   return (
-    <Container className="mt-5">
-      <h2 className="text-center mb-4 text-black">Image Gallery</h2>
+    <div>
+      <Container>
       <Row>
-        {images.length === 0 ? (
-          <Col>
-            <p className="text-center">No images available.</p>
-          </Col>
-        ) : (
-          images.map((img, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4 mt-5">
-              <Card>
-                <Card.Img
-                  variant="top"
-                  src={`http://localhost:3000/gallery/images/${img.image}`}
-                  alt={`image ${index + 1}`}
-                  style={{ height: '200px', objectFit: 'cover' }}
-                />
-              </Card>
-            </Col>
-          ))
-        )}
+        <Col md={3}>
+          <DropdownButton id="dropdown-sort" title="Sort By Date" variant="secondary">
+            <Dropdown.Item onClick={() => handleSortChange('date_asc')}>Date (Ascending)</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleSortChange('date_desc')}>Date (Descending)</Dropdown.Item>
+            {/* Add other sort options if needed: */}
+            {/* <Dropdown.Item onClick={() => handleSortChange('name_asc')}>Name (Ascending)</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleSortChange('name_desc')}>Name (Descending)</Dropdown.Item> */}
+          </DropdownButton>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          {images.length === 0 ? (
+            <p>No images available to display.</p>
+          ) : (
+            <ImageGallery items={images.map((image) => ({ original: image.url }))} />
+          )}
+        </Col>
       </Row>
     </Container>
-  );
-};
+    </div>
+  )
+}
 
-export default Gallery;
+export default Gallery

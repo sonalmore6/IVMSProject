@@ -66,4 +66,44 @@
   background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
   /* z-index: 1; */
 }
+/* Styling for Fixed WhatsApp and Call Icons */
+.icon-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column; /* Stack icons vertically */
+  align-items: center; /* Center them horizontally */
+}
 
+.icon-link {
+  margin: 10px 0; /* Add space between icons */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icon {
+  border-radius: 50%; /* Circular shape */
+  padding: 10px; /* Add padding for better appearance */
+  background-color: white; /* White background to make icons stand out */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* Hover effect: enlarge the icon, add a stronger shadow and change background color */
+.icon-link:hover .icon {
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  background-color: #f4f4f4; /* Light grey background on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .icon-container {
+    bottom: 10px;
+    right: 10px;
+  }
+  .icon-link {
+    margin: 10px 0;
+  }
+}
